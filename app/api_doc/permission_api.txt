@@ -1,0 +1,28 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/permissions/ui-tabs" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/permissions/users/5/ui-tabs" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PUT \
+  "http://localhost:8000/api/v1/permissions/users/5/ui-tabs" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tabs": {
+      "dashboard": {
+        "enabled": true,
+        "editable": true
+      },
+      "analytics": {
+        "enabled": true,
+        "editable": false
+      },
+      "campaigns": {
+        "enabled": false,
+        "editable": false
+      }
+    }
+  }'

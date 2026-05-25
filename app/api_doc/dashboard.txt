@@ -1,0 +1,40 @@
+1. Dashboard Summary
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/summary?from_date=2026-05-01&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+2. Dashboard Timeseries (Day)
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/timeseries?granularity=day&from_date=2026-05-01&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+3. Dashboard Timeseries (Hour)
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/timeseries?granularity=hour&from_date=2026-05-20&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+4. Dashboard Timeseries (Week)
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/timeseries?granularity=week&from_date=2026-05-01&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+5. Dashboard User Trends
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/user-trends?user_id=1&granularity=day&from_date=2026-05-01&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+6. Dashboard Accounts Ads
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/accounts-ads?from_date=2026-05-01&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+7. Dashboard TL Users
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/tl-users?from_date=2026-05-01&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+8. Dashboard Account Drilldown
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/dashboard/account-data?platform=facebook&account_id=1463591954898602&start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

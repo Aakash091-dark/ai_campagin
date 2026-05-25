@@ -1,0 +1,40 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/user/notes" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/user/notes" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Campaign Ideas",
+    "html": "<p>Scale winning campaigns next week.</p>",
+    "preview": "Scale winning campaigns next week.",
+    "settings": {
+      "fontFamily": "-apple-system, BlinkMacSystemFont, sans-serif",
+      "fontSize": 15,
+      "textAlign": "left"
+    },
+    "wordCount": 5,
+    "charCount": 37
+  }'
+curl -X PUT \
+  "http://localhost:8000/api/v1/user/notes/note_123" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated Campaign Ideas",
+    "html": "<p>Increase budget for high ROAS campaigns.</p>",
+    "preview": "Increase budget for high ROAS campaigns.",
+    "settings": {
+      "fontFamily": "-apple-system, BlinkMacSystemFont, sans-serif",
+      "fontSize": 15,
+      "textAlign": "left"
+    },
+    "wordCount": 7,
+    "charCount": 49
+  }'
+curl -X DELETE \
+  "http://localhost:8000/api/v1/user/notes/note_123" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

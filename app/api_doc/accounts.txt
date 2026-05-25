@@ -1,0 +1,25 @@
+curl -X GET \
+  "http://localhost:8000/workspaces/1/accounts?platform=facebook&include_all=false" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/workspaces/1/accounts/101/status?is_active=true" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X DELETE \
+  "http://localhost:8000/workspaces/1/accounts/101" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/workspaces/1/accounts/101/users" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/workspaces/1/backfill" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "platform": "facebook",
+    "start_date": "2026-05-01",
+    "end_date": "2026-05-22"
+  }'

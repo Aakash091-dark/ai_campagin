@@ -1,0 +1,61 @@
+curl -X GET \
+  "http://localhost:8000/account-linking/facebook/auth-url?workspace_id=1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/account-linking/google/auth-url?workspace_id=1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/account-linking/tiktok/auth-url?workspace_id=1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/integration/callback?code=AUTH_CODE&state=STATE_STRING" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/workspaces/1/accounts/101/adaccounts" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/integration/runtime-accounts" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session": "BASE64_SESSION_STRING"
+  }'
+curl -X POST \
+  "http://localhost:8000/platform/adaccounts" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "platform": "facebook",
+    "session": "BASE64_SESSION_STRING",
+    "selections": [
+      {
+        "account_id": "act_123456789",
+        "account_name": "Main Ad Account",
+        "timezone": "Asia/Kolkata",
+        "currency": "USD",
+        "parent_manager_id": "mgr_001"
+      }
+    ]
+  }'
+curl -X POST \
+  "http://localhost:8000/integration/manual" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "workspace_id": 1,
+      "name": "NewsBreak Account",
+      "account_id": "org_123",
+      "platform": "newsbreak",
+      "token": "ACCESS_TOKEN",
+      "timezone": "Asia/Kolkata",
+      "currency": "USD",
+      "profile_name": "Main Profile",
+      "profile_id": "profile_001"
+    }
+  ]'

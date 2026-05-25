@@ -1,0 +1,23 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/live/campaigns?platform=facebook&partial=false" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/historical/campaigns?platform=facebook&start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/cphistorical/campaigns?start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/historical/campaigns/export?start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/historical/breakdown?platform=facebook&start_date=2026-05-01&end_date=2026-05-22&granularity=hour&campaign_id=2381234567891011" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/historical/campaigns/by-user?platform=facebook&start_date=2026-05-01&end_date=2026-05-22&user_id=5" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

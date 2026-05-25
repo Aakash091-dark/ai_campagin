@@ -1,0 +1,153 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/campaign-status/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "status": "PAUSED",
+      "platform": "facebook"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/google/campaign-bid/enhanced-cpc/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1234567890",
+      "campaign_id": "987654321",
+      "enhanced_cpc_enabled": true,
+      "bidding_strategy": "MANUAL_CPC",
+      "bid_value": 1.5
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/campaign-budget/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "budget": 100,
+      "budget_type": "DAILY",
+      "status": "ACTIVE"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/adset-budget/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "adset_id": "2389988776655",
+      "budget": 50,
+      "budget_type": "DAILY",
+      "status": "ACTIVE"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/adset-bid/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "adset_id": "2389988776655",
+      "bid_amount": 2.5
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/google/adset-bid/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1234567890",
+      "campaign_id": "987654321",
+      "adset_id": "44556677",
+      "cpc_bid_amount": 1.25
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/adset-status/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "adset_id": "2389988776655",
+      "status": "PAUSED",
+      "platform": "facebook"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/ad-status/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "adset_id": "2389988776655",
+      "ad_id": "120045678901",
+      "material_id": "mat_001",
+      "status": "ACTIVE",
+      "platform": "facebook"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/ad/delete/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "adset_id": "2389988776655",
+      "ad_id": "120045678901",
+      "platform": "facebook"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/campaign/delete/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "platform": "facebook"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/adset/delete/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "1463591954898602",
+      "campaign_id": "2381234567891011",
+      "adset_id": "2389988776655",
+      "platform": "facebook"
+    }
+  ]'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/ad-material-status/change/bulk" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "account_id": "99887766",
+      "ad_id": "5544332211",
+      "adset_id": "22334455",
+      "material_id": "material_001",
+      "status": "ENABLE"
+    }
+  ]'

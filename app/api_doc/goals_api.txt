@@ -1,0 +1,16 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/goals" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": 1,
+    "target_period": "2026-05",
+    "target_profit": 5000
+  }'
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/goals/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "target_profit": 7500
+  }'

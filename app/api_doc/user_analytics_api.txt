@@ -1,0 +1,16 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/reporting?start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/goals?start_month=2026-01&end_month=2026-05" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/tasks" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/member-report/send?target_user_id=1&start_month=2026-01&end_month=2026-05" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

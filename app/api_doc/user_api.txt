@@ -1,0 +1,59 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/user/profile" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/user/profile" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Aakash Sehrawat",
+    "number": "9876543210",
+    "social_id": "@aakash",
+    "profile_pic": "https://example.com/profile.jpg",
+    "media_buyer_code": "MB001"
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/user/camp_template" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/user/camp_template" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "columns": ["campaign_name", "spend", "clicks"],
+    "sort": {
+      "field": "spend",
+      "direction": "desc"
+    },
+    "filters": {
+      "status": ["ACTIVE", "PAUSED"]
+    }
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/user/reporting_template" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/user/reporting_template" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "metrics": ["spend", "clicks", "conversions"],
+    "group_by": ["campaign", "date"],
+    "date_range": {
+      "preset": "last_7_days"
+    }
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user/tags" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "platform": "facebook",
+    "category": "campaign",
+    "entity_id": "2381234567891011",
+    "tags": ["retargeting", "Q1", "lookalike"]
+  }'

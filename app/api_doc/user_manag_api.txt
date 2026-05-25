@@ -1,0 +1,105 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/admins" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "email": "admin@example.com",
+    "name": "Admin User",
+    "number": "9876543210",
+    "password": "StrongPassword123"
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/tls" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "email": "tl@example.com",
+    "name": "Team Lead",
+    "number": "9876543210",
+    "password": "StrongPassword123"
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/ct_tl" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "email": "cttl@example.com",
+    "name": "CT Team Lead",
+    "number": "9876543210",
+    "password": "StrongPassword123"
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/ct_user" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "email": "ctuser@example.com",
+    "name": "CT User",
+    "number": "9876543210",
+    "password": "StrongPassword123",
+    "tl_id": 2
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/ctesting_tl" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "email": "ctestingtl@example.com",
+    "name": "CTesting TL",
+    "number": "9876543210",
+    "password": "StrongPassword123"
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/ctesting_users" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "email": "ctestinguser@example.com",
+    "name": "CTesting User",
+    "number": "9876543210",
+    "password": "StrongPassword123",
+    "tl_id": 3
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/users" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "email": "user@example.com",
+    "name": "Regular User",
+    "number": "9876543210",
+    "password": "StrongPassword123",
+    "tl_id": 2
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/user-management/workspaces/users/assign-tl" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_id": 1,
+    "user_id": 10,
+    "tl_id": 2
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/user-management/workspaces/1/users?only_active=true&role=user&full_data=true" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/user-management/workspaces/1/tls/2/users" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/user-management/users/10" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X DELETE \
+  "http://localhost:8000/api/v1/user-management/users/10" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

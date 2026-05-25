@@ -1,0 +1,60 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/rejected-ads?platform=facebook" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/rejected-ads/appeal" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "items": [
+      {
+        "ad_id": "2381234567891011",
+        "account_id": "1463591954898602"
+      }
+    ]
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/rejected-ads/update" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "items": [
+      {
+        "ad_id": "2381234567891011",
+        "account_id": "1463591954898602"
+      }
+    ],
+    "ad_status": "PAUSED",
+    "image_hash": "abc123def456",
+    "primary_text": "New approved ad copy",
+    "headline": "Limited Time Offer",
+    "description": "Updated compliant creative",
+    "call_to_action": "SHOP_NOW",
+    "link": "https://example.com",
+    "display_link": "example.com"
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/rejected-ads/auto-swap-logs?page=1&page_size=50" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/rejected-ads/auto-swap-summary" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/rejected-ads/auto-delete-logs?page=1&page_size=50" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/rejected-ads/auto-delete-summary" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/accounts/101/auto-swap?enabled=true" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/accounts/101/auto-delete?enabled=true" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

@@ -1,0 +1,43 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/reporting/config" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "slots_config": {
+      "s1": "10:00",
+      "s2": "14:00",
+      "s3": "18:00"
+    },
+    "timezone": "Asia/Kolkata",
+    "buffer_before_min": 15,
+    "buffer_after_min": 30,
+    "is_active": true
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/reporting/slots" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/reporting/submit" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "slot_id": "s1",
+    "data": {
+      "facebook": {
+        "spend": 120,
+        "revenue": 340,
+        "leads": 25
+      },
+      "google": {
+        "spend": 80,
+        "revenue": 210,
+        "leads": 18
+      }
+    },
+    "date": "2026-05-22"
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/reporting/zero-report" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

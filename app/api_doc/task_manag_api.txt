@@ -1,0 +1,104 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/categories" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Bug Fix"
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/categories" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X DELETE \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/categories/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/tags" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "urgent"
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/tags" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X DELETE \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/tags/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/tasks" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Review landing page copy",
+    "description": "Check CTR and optimize headline",
+    "remark": "High priority task",
+    "category_id": 1,
+    "priority": "high",
+    "assigned_to": [5],
+    "due_at": "2026-05-25T18:00:00",
+    "tag_ids": [1, 2],
+    "watcher_ids": [10, 11],
+    "is_repeat": true,
+    "repeat_type": "daily",
+    "repeat_start_at": "2026-05-22T10:00:00",
+    "repeat_time": "10:00",
+    "repeat_due_days": 1,
+    "repeat_on_days": [1, 2, 3, 4, 5],
+    "repeat_on_dates": [1, 15]
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/tasks?status=pending&priority=high&page=1&page_size=20" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/stats?assigned_to=5&status=in_progress" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Updated task title",
+    "priority": "medium",
+    "tag_ids": [1, 3],
+    "watcher_ids": [10]
+  }'
+curl -X DELETE \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1/status" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "status": "completed"
+  }'
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1/repeat-toggle" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1/comments" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "content": "I have started working on this task."
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1/comments" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/tasks/1/activity?limit=50" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

@@ -1,0 +1,76 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/automations/" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Pause High Spend Campaign",
+    "action_type": "pause",
+    "platform": "facebook",
+    "entity_level": "campaign",
+    "entity_ids": ["120241714695200473"],
+    "trigger_type": "interval",
+    "frequency_minutes": 60,
+    "notify_in_app": true,
+    "notify_email": true,
+    "conditions": [
+      {
+        "metric": "spend",
+        "operator": ">",
+        "value": 50,
+        "unit": "$"
+      },
+      {
+        "metric": "CPM",
+        "operator": ">",
+        "value": 30,
+        "unit": "$",
+        "conjunction": "AND"
+      }
+    ]
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/automations/?platform=facebook&is_active=true&page=1&limit=20" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/automations/2" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/automations/2" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "frequency_minutes": 30,
+    "conditions": [
+      {
+        "metric": "spend",
+        "operator": ">",
+        "value": 100,
+        "unit": "$"
+      },
+      {
+        "metric": "ROAS",
+        "operator": "<",
+        "value": 1,
+        "unit": "$",
+        "conjunction": "AND"
+      }
+    ]
+  }'
+curl -X DELETE \
+  "http://localhost:8000/api/v1/workspaces/1/automations/2" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/automations/2/toggle" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/automations/2/logs?page=1&limit=10" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/automations/logs/all?platform=facebook&action_success=false&page=1&limit=50" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

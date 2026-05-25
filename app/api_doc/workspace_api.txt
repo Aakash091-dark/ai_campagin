@@ -1,0 +1,37 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/workspace" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Lemonmaxx Workspace",
+    "default_timezone": "Asia/Kolkata",
+    "media_buyer_code_wise": false
+  }'
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspace/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Updated Workspace",
+    "default_timezone": "Asia/Kolkata",
+    "media_buyer_code_wise": true,
+    "is_favorite": true
+  }'
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspace/1/status" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "is_active": true
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspace/workspace-list" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X DELETE \
+  "http://localhost:8000/api/v1/workspace/delete" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "workspace_ids": [1, 2]
+  }'

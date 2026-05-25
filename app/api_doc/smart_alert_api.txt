@@ -1,0 +1,78 @@
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "alert_name": "High Spend Alert",
+    "scope": "Campaign Level",
+    "target": "platform",
+    "platform": "facebook",
+    "entity_target": "specific",
+    "entity_ids": ["52530809559924"],
+    "entity_names": ["Page Like | Alexis Griffin"],
+    "conditions": [
+      {
+        "metric": "Spend",
+        "condition": "Increases By %",
+        "value": "20",
+        "period": "Last 30 Minutes,Last 1 Hour",
+        "logical_operator": "AND"
+      },
+      {
+        "metric": "CPC",
+        "condition": ">",
+        "value": "50",
+        "unit": "$",
+        "logical_operator": "OR"
+      }
+    ],
+    "timezone": "America/New_York",
+    "notify_in_app": true,
+    "notify_email": true,
+    "notify_telegram": false
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/?platform=facebook&is_active=true&page=1&limit=20" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/5" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PATCH \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/5" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "alert_name": "Updated ROAS Alert",
+    "notify_email": true,
+    "conditions": [
+      {
+        "metric": "ROAS",
+        "condition": "<",
+        "value": "1",
+        "unit": "$",
+        "logical_operator": "AND"
+      }
+    ]
+  }'
+curl -X DELETE \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/5" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/5/toggle" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/5/logs?page=1&limit=10" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts-logs/?platform=facebook&has_matches=true&page=1&limit=50" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/smart-alerts/runs/42/triggered-entities" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

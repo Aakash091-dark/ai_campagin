@@ -1,0 +1,51 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/team-members?platform=facebook&from_date=2026-05-01&to_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/reports/exports?platform=facebook&date_from=2026-05-01&date_to=2026-05-22&full=false" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/reports/exports?date_from=2026-05-01&date_to=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/reports/exports/1/status" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/reports/exports/1/download" \
+  -H "Authorization: Bearer TOKEN"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/historical/offers?platform=facebook&start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/historical/offer-camp-wise-groupby?platform=facebook&start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/historical/campaign-offers?platform=facebook&start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/vertical-offers/all-platforms?start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/insights/vertical-offers/all-platforms/campaign-groupby?start_date=2026-05-01&end_date=2026-05-22" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/dynamic-matrix?platform=facebook&start_date=2026-05-01&end_date=2026-05-22&dim1=campaign_name&dim2=country&dim3=device" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/creatives/cards?platform=facebook&start_date=2026-05-01&end_date=2026-05-22&view_mode=workspace" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/analytics/creatives/graph?platform=facebook&start_date=2026-05-01&end_date=2026-05-22&view_mode=workspace" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"

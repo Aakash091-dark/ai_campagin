@@ -1,0 +1,27 @@
+# requirements.txt
+
+fastapi
+uvicorn
+sqlalchemy
+asyncpg
+psycopg2-binary
+redis
+httpx
+python-dotenv
+structlog
+pydantic
+python-jose
+passlib
+bcrypt
+langgraph
+langchain
+langchain-core
+anthropic
+sentence-transformers
+numpy
+tenacity
+orjson
+websockets
+python-multipart
+greenlet
+pydantic-settings

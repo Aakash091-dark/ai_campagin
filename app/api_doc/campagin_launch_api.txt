@@ -1,0 +1,203 @@
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/accounts?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/pixels?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/pages?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/ads-volume" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/pages/123456789/instagram-accounts?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/pages/123456789/threads-accounts?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/targeting/countries?account_id=1463591954898602&q=india" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/targeting/cities?account_id=1463591954898602&q=ahmedabad&country_code=IN" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/targeting/languages?account_id=1463591954898602&q=english" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/targeting/search?account_id=1463591954898602&q=delhi&location_types=city" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/targeting/detailed?account_id=1463591954898602&q=fitness&limit=10" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/targeting/resolve-country?account_id=1463591954898602&name=India" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/audiences?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/media/images?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/media/videos?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/media/upload-image?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -F "file=@/path/to/image.jpg"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/media/upload-video?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -F "title=Promo Video" \
+  -F "file=@/path/to/video.mp4"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/campaign" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "account_id": "1463591954898602",
+    "name": "Summer Campaign",
+    "objective": "OUTCOME_SALES",
+    "status": "ACTIVE",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP"
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/campaign/adset" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "campaign_id": "120241714695200473",
+    "account_id": "1463591954898602",
+    "name": "India Audience",
+    "status": "ACTIVE",
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "daily_budget": "1000",
+    "targeting": {
+      "geo_locations": {
+        "countries": ["IN"]
+      },
+      "age_min": 18,
+      "age_max": 45
+    }
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/campaign/ad" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "adset_id": "120241714695200474",
+    "account_id": "1463591954898602",
+    "name": "Creative 1",
+    "status": "ACTIVE",
+    "page_id": "123456789",
+    "creative": {
+      "link_data": {
+        "link": "https://example.com",
+        "message": "Buy now",
+        "image_hash": "abc123"
+      }
+    }
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/campaign/history?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/campaign/logs?level=INFO&limit=100" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launch-campaign" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "account_id": "1463591954898602",
+    "campaign_name": "Full Funnel Campaign",
+    "objective": "OUTCOME_SALES",
+    "campaign_status": "ACTIVE"
+  }'
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launch-campaign/batch" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "campaigns": [
+      {
+        "account_id": "1463591954898602",
+        "campaign_name": "Batch Campaign 1",
+        "objective": "OUTCOME_TRAFFIC",
+        "campaign_status": "ACTIVE"
+      }
+    ]
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launch-campaign/job/job_12345" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launch-campaign/jobs?page=1&page_size=20" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launch-campaign/campaigns?page=1&page_size=20" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launches?account_id=1463591954898602&limit=50" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launches/campaigns?account_id=1463591954898602" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launches/adsets?campaign_id=120241714695200473" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/launches/ads?adset_id=120241714695200474" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X POST \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/templates" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "template_name": "Ecommerce Template",
+    "description": "Reusable ecommerce campaign",
+    "data": {}
+  }'
+curl -X GET \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/templates" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
+curl -X PUT \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/templates/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "template_name": "Updated Template",
+    "description": "Updated description",
+    "data": {}
+  }'
+curl -X DELETE \
+  "http://localhost:8000/api/v1/workspaces/1/camp-launcher/templates/1" \
+  -H "Authorization: Bearer TOKEN" \
+  -H "Content-Type: application/json"
