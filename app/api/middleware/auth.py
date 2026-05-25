@@ -18,12 +18,13 @@ from jose import jwt as jose_jwt, JWTError
 
 from app.config.settings import settings
 from app.config.logging import get_logger
+from app.core.context import request_token_var
 
 logger = get_logger("auth-middleware")
 
 # ── paths that skip auth entirely ─────────────────────────────────
 _PUBLIC_PATHS = {"/", "/health", "/health/"}
-_PUBLIC_PREFIXES = ("/health/", "/api/v1/test")
+_PUBLIC_PREFIXES = ("/health/", "/api/v1/test", "/api/v1/ai")
 
 # ── dev token ─────────────────────────────────────────────────────
 # Two accepted dev tokens in development mode:
@@ -56,42 +57,51 @@ class AuthMiddleware(BaseHTTPMiddleware):
 
         path = request.url.path
 
-        # ── skip public routes ─────────────────────────────────────
-        if path in _PUBLIC_PATHS or any(path.startswith(p) for p in _PUBLIC_PREFIXES):
-            return await call_next(request)
-
-        # ── require Authorization header ───────────────────────────
+        # ── extract Authorization header for backend API calls ─────
         auth_header = request.headers.get("Authorization", "")
-        if not auth_header.startswith("Bearer "):
-            return _json_401("Authorization header missing or malformed")
+        token = ""
+        if auth_header.startswith("Bearer "):
+            token = auth_header[7:]
+            request_token_var.set(token)
+            
+        # ── try to decode & validate JWT (optional for public routes) ──
+        user_assigned = False
+        if token:
+            if settings.ENVIRONMENT == "development" and token in _DEV_TOKENS:
+                request.state.user = _DEV_USER
+                user_assigned = True
+            else:
+                try:
+                    # In some setups, you may want to skip signature verification if you just want to extract the sub
+                    # But for security on non-public routes, we keep it fully validated.
+                    payload = jose_jwt.decode(
+                        token,
+                        settings.SECRET_KEY,
+                        algorithms=[settings.JWT_ALGORITHM],
+                    )
+                    user_id = payload.get("sub")
+                    if user_id:
+                        request.state.user = {
+                            "user_id": int(user_id),
+                            "email": payload.get("email", ""),
+                            "role": payload.get("role", "user"),
+                        }
+                        user_assigned = True
+                except JWTError:
+                    pass
 
-        token = auth_header[7:]  # strip "Bearer "
-
-        # ── dev token bypass (development only) ───────────────────
-        if settings.ENVIRONMENT == "development" and token in _DEV_TOKENS:
-            request.state.user = _DEV_USER
-            logger.debug("Dev token accepted", path=path)
+        # ── skip public routes ─────────────────────────────────────
+        is_public = path in _PUBLIC_PATHS or any(path.startswith(p) for p in _PUBLIC_PREFIXES)
+        
+        if is_public:
+            if not user_assigned:
+                request.state.user = _DEV_USER
             return await call_next(request)
 
-        # ── decode & validate JWT ──────────────────────────────────
-        try:
-            payload = jose_jwt.decode(
-                token,
-                settings.SECRET_KEY,
-                algorithms=[settings.JWT_ALGORITHM],
-            )
-        except JWTError as exc:
-            logger.warning("JWT validation failed", error=str(exc), path=path)
+        # ── require Authorization header for non-public routes ─────
+        if not user_assigned:
+            if not token:
+                return _json_401("Authorization header missing or malformed")
             return _json_401("Invalid or expired token")
-
-        user_id = payload.get("sub")
-        if not user_id:
-            return _json_401("Token missing 'sub' claim")
-
-        request.state.user = {
-            "user_id": int(user_id),
-            "email": payload.get("email", ""),
-            "role": payload.get("role", "user"),
-        }
 
         return await call_next(request)

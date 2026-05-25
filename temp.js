@@ -1,46 +1,4 @@
-# app/core/ui/chat_ui.py
 
-CHAT_UI_HTML = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lemonmaxx AI</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f1117;color:#e6edf3;font-family:Arial,sans-serif;height:100vh;display:flex;justify-content:center;align-items:center}
-.container{width:960px;max-width:96vw;height:92vh;background:#161b22;border:1px solid #30363d;border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
-.header{padding:16px 20px;border-bottom:1px solid #30363d;font-weight:700;font-size:17px;color:#e6edf3}
-.messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
-.message{max-width:88%;padding:14px 16px;border-radius:12px;line-height:1.6;word-break:break-word}
-.user{align-self:flex-end;background:#1f6feb;color:#fff}
-.assistant{align-self:flex-start;background:#21262d;border:1px solid #30363d;min-width:260px}
-.error-msg{align-self:flex-start;background:#3d1f1f;border:1px solid #f85149;color:#ffb3b3;padding:12px 16px;border-radius:12px}
-.meta{margin-top:10px;padding-top:8px;border-top:1px solid #30363d;font-size:11px;color:#8b949e;display:flex;gap:12px;flex-wrap:wrap}
-.input-area{padding:14px 16px;border-top:1px solid #30363d;display:flex;gap:10px;align-items:flex-end}
-textarea{flex:1;background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:10px;padding:11px 14px;resize:none;outline:none;font-size:14px;min-height:44px;max-height:140px;font-family:inherit}
-textarea:focus{border-color:#388bfd}
-#sendBtn{background:#238636;border:none;color:#fff;padding:11px 22px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;white-space:nowrap}
-#sendBtn:hover{background:#2ea043}
-#sendBtn:disabled{opacity:.5;cursor:not-allowed}
-.card{display:flex;flex-direction:column;gap:10px}
-.text-content{line-height:1.65;font-size:14px}
-.follow-ups{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-.follow-btn{background:#30363d;border:1px solid #484f58;color:#e6edf3;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px}
-.follow-btn:hover{background:#484f58}
-</style>
-</head>
-<body>
-<div class="container">
-  <div class="header">Lemonmaxx AI</div>
-  <div class="messages" id="messages"></div>
-  <div class="input-area">
-    <textarea id="userInput" placeholder="Ask anything..." rows="1"></textarea>
-    <button id="sendBtn">Send</button>
-  </div>
-</div>
-
-<script>
 (function(){
 'use strict';
 
@@ -204,7 +162,7 @@ function parseOpenUI(code){
       'TextContent','Card','Alert','Badge',
       'Table','Chart','Metric','MetricGrid','Section',
       'FollowUpItem','FollowUpBlock',
-      code + '\\nreturn root;'
+      code + '\nreturn root;'
     );
     return fn(
       TextContent, Card, Alert, Badge,
@@ -314,7 +272,3 @@ inputEl.addEventListener('input', function(){
 inputEl.focus();
 
 })();
-</script>
-</body>
-</html>
-"""

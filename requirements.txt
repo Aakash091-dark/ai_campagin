@@ -25,3 +25,7 @@ websockets
 python-multipart
 greenlet
 pydantic-settings
+celery
+pgvector
+langchain-postgres
+e2b_code_interpreter

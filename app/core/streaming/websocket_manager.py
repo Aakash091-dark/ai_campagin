@@ -72,6 +72,24 @@ class ConnectionManager:
             await websocket.send_text(message)
 
     # =====================================================
+    # SEND JSON EVENT
+    # =====================================================
+    async def send_json_event(
+        self,
+        client_id: str,
+        event_type: str,
+        payload: dict,
+    ):
+        """Send a structured JSON event to a specific client.
+        Supports token streaming, execution progress, and tool status."""
+        websocket = self.active_connections.get(client_id)
+        if websocket:
+            await websocket.send_json({
+                "type": event_type,
+                "data": payload
+            })
+
+    # =====================================================
     # BROADCAST
     # =====================================================
     async def broadcast(

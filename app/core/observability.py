@@ -14,12 +14,19 @@ from __future__ import annotations
 
 import time
 import uuid
+import os
 from contextlib import asynccontextmanager
 from contextvars import ContextVar
 from typing import Any
 
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
+from prometheus_client import Counter, Histogram
+
+# Observability Metrics
+TOOL_CALLS = Counter("tool_calls_total", "Total tool calls", ["tool_name", "status"])
+LATENCY = Histogram("request_latency_seconds", "Request Latency", ["method", "endpoint"])
+AI_EXECUTION_TIME = Histogram("ai_execution_seconds", "AI Execution Time", ["agent", "model"])
 
 from app.config.logging import get_logger
 
@@ -59,7 +66,9 @@ class TracingMiddleware(BaseHTTPMiddleware):
 
         response = await call_next(request)
 
-        elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
+        elapsed_seconds = time.perf_counter() - start
+        elapsed_ms = round(elapsed_seconds * 1000, 1)
+        LATENCY.labels(method=request.method, endpoint=request.url.path).observe(elapsed_seconds)
 
         logger.info(
             "Request end",
@@ -144,6 +153,7 @@ async def tool_span(tool_name: str, **kwargs: Any):
     try:
         yield
         elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
+        TOOL_CALLS.labels(tool_name=tool_name, status="success").inc()
         logger.info(
             "Tool span end",
             trace_id=trace_id,
@@ -153,6 +163,7 @@ async def tool_span(tool_name: str, **kwargs: Any):
         )
     except Exception as exc:
         elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
+        TOOL_CALLS.labels(tool_name=tool_name, status="error").inc()
         logger.error(
             "Tool span error",
             trace_id=trace_id,
@@ -188,7 +199,9 @@ async def llm_span(model: str, agent: str):
 
     try:
         yield span
-        elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
+        elapsed_seconds = time.perf_counter() - start
+        elapsed_ms = round(elapsed_seconds * 1000, 1)
+        AI_EXECUTION_TIME.labels(agent=agent, model=model).observe(elapsed_seconds)
         logger.info(
             "LLM span end",
             trace_id=trace_id,
@@ -209,3 +222,16 @@ async def llm_span(model: str, agent: str):
             error=str(exc),
         )
         raise
+
+# Initialize Sentry and LangSmith (Mock setup per requirements)
+def setup_observability():
+    sentry_dsn = os.environ.get("SENTRY_DSN")
+    if sentry_dsn:
+        import sentry_sdk
+        sentry_sdk.init(dsn=sentry_dsn, traces_sample_rate=1.0)
+        logger.info("Sentry initialized")
+        
+    langsmith_api_key = os.environ.get("LANGCHAIN_API_KEY")
+    if langsmith_api_key:
+        os.environ["LANGCHAIN_TRACING_V2"] = "true"
+        logger.info("LangSmith tracing enabled")

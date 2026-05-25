@@ -38,20 +38,12 @@ from app.api.routes.health import (
     router as health_router,
 )
 
-from app.api.routes.memory import (
-    router as memory_router,
-)
-
 from app.api.routes.conversations import (
     router as conversations_router,
 )
 
 from app.api.routes.websockets import (
     router as websocket_router,
-)
-
-from app.api.routes.test import (
-    router as test_router,
 )
 
 from app.api.middleware.rate_limit import (
@@ -136,14 +128,8 @@ app.include_router(
 )
 
 app.include_router(
-    memory_router,
-    prefix="/api/v1/memory",
-    tags=["Memory"],
-)
-
-app.include_router(
     conversations_router,
-    prefix="/api/v1/conversations",
+    prefix="/api/v1/ai/conversations",
     tags=["Conversations"],
 )
 
@@ -151,12 +137,6 @@ app.include_router(
     websocket_router,
     prefix="/ws",
     tags=["WebSocket"],
-)
-
-app.include_router(
-    test_router,
-    prefix="/api/v1/test",
-    tags=["Test"],
 )
 
 

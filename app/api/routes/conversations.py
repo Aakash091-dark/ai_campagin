@@ -105,37 +105,3 @@ async def get_conversation(
     }
 
 
-# =========================================================
-# DELETE CONVERSATION
-# =========================================================
-@router.delete("/{conversation_id}")
-async def delete_conversation(
-    conversation_id: str,
-    db: AsyncSession = Depends(get_db),
-):
-
-    query = (
-        select(Conversation)
-        .where(
-            Conversation.id == conversation_id
-        )
-    )
-
-    result = await db.execute(query)
-
-    conversation = result.scalar_one_or_none()
-
-    if not conversation:
-        raise HTTPException(
-            status_code=404,
-            detail="Conversation not found"
-        )
-
-    await db.delete(conversation)
-
-    await db.commit()
-
-    return {
-        "success": True,
-        "message": "Conversation deleted"
-    }

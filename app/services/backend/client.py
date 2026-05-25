@@ -9,6 +9,7 @@ from app.config.settings import (
 from app.config.logging import (
     get_logger,
 )
+from app.core.context import request_token_var
 
 
 logger = get_logger("backend-client")
@@ -63,15 +64,14 @@ class BackendClient:
     # DEFAULT HEADERS
     # =====================================================
     def default_headers(self) -> dict:
-        # Re-read from settings on every call so token rotations
-        # (e.g. updating .env and restarting) are always picked up.
-        # AUTH_TOKEN takes priority over BACKEND_API_KEY.
-        token = settings.AUTH_TOKEN or settings.BACKEND_API_KEY
+        # 1. Check for token passed from frontend via context
+        # 2. Re-read from settings on every call so token rotations are always picked up.
+        token = request_token_var.get() or settings.AUTH_TOKEN or settings.BACKEND_API_KEY
 
         if not token:
             logger.warning(
                 "No auth token configured — "
-                "set AUTH_TOKEN or BACKEND_API_KEY in .env"
+                "provide via frontend, or set AUTH_TOKEN / BACKEND_API_KEY in .env"
             )
 
         return {
